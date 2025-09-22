@@ -367,7 +367,14 @@
   const playButton = document.getElementById('play-button');
 
   playButton.addEventListener('click', () => {
-    music.play().catch(() => {});
+    // Memastikan audio sudah siap sebelum diputar
+    if (music.readyState >= 3) {
+      music.play().catch(() => {});
+    } else {
+      music.addEventListener('canplaythrough', () => {
+        music.play().catch(() => {});
+      });
+    }
   });
 
   // Script untuk animasi on-scroll

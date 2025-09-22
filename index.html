@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Istriku</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* Base Styles */
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #FFB6C1, #FFF0F5);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 2rem;
+  }
+
+  /* Main Title Styling */
+  .main-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #e75480;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Section Styles - Horizontal (Desktop) */
+  .section {
+    width: 90%;
+    max-width: 900px;
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    transition: transform 1s cubic-bezier(.17,.67,.83,.67), opacity 1s cubic-bezier(.17,.67,.83,.67);
+  }
+  
+  /* Photo and Text containers */
+  .photo-wrap, .text-box {
+    flex: 1;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+  }
+  /* Hover/Touch effect */
+  .photo-wrap:hover, .text-box:hover {
+    transform: scale(1.02);
+  }
+
+  /* Image styling */
+  .photo {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.9);
+    transform: rotate(-4deg);
+  }
+
+  /* Section Even: Photo on right, text on left */
+  .section.even {
+    flex-direction: row-reverse;
+  }
+  .section.even .photo {
+    transform: rotate(4deg);
+  }
+
+  /* Text Box Styling */
+  .text-box {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    border: 2px solid #000;
+    color: #e75480;
+    font-family: 'Dancing Script', cursive;
+    word-break: break-word;
+  }
+  .text-box h2 {
+    margin: 0 0 0.5rem 0;
+    color: #e75480;
+    font-size: 1.8rem;
+  }
+  .text-box p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  /* Emoji Styling */
+  .emoji {
+    position: absolute;
+    font-size: 2rem;
+    animation: float 3s ease-in-out infinite;
+  }
+  .emoji.tl { top: -15px; left: -15px; animation-delay: 0s; }
+  .emoji.tr { top: -15px; right: -15px; animation-delay: 0.5s; }
+  .emoji.bl { bottom: -15px; left: -15px; animation-delay: 1s; }
+  .emoji.br { bottom: -15px; right: -15px; animation-delay: 1.5s; }
+
+  /* Animasi melayang */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+  }
+
+  /* Gallery Styles */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    padding: 2rem;
+    max-width: 900px;
+    width: 90%;
+  }
+  /* Gallery Image Base Styling */
+  .gallery img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    transform: rotate(-4deg);
+    transition: transform 0.3s;
+  }
+  .gallery img:nth-child(even) {
+    transform: rotate(4deg);
+  }
+  .gallery img:hover {
+    transform: scale(1.05) rotate(0deg) !important;
+  }
+
+  /* Closing Message Styling */
+  .closing-message {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: #e75480;
+    text-align: center;
+    margin-top: 2rem;
+    max-width: 900px;
+    width: 90%;
+    line-height: 1.5;
+    transition: transform 1s cubic-bezier(.17,.67,.83,.67), opacity 1s cubic-bezier(.17,.67,.83,.67);
+  }
+
+  /* Closing Emoji Styling */
+  .closing-emoji {
+    font-size: 2.5rem;
+    color: #e75480;
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    animation: pulse 2s infinite;
+  }
+  /* Animasi berdetak untuk hati */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  /* Copyright Styling */
+  .copyright {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
+    color: #888;
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 900px;
+  }
+
+  /* Perubahan untuk animasi on-scroll yang lebih mencolok (untuk sections dan closing-message) */
+  .hidden {
+    opacity: 0;
+    transform: translateY(100px) rotate(-5deg); /* Gerakan lebih jauh dengan putaran */
+  }
+  .show {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg); /* Kembali ke posisi semula */
+  }
+  
+  /* Animasi Gallery Gelombang */
+  .gallery img {
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(.17,.67,.83,.67), opacity 0.8s cubic-bezier(.17,.67,.83,.67);
+  }
+  /* Posisi awal animasi */
+  .gallery img:nth-child(odd) {
+    transform: translateX(-100px) scale(0.8) rotate(-10deg);
+  }
+  .gallery img:nth-child(even) {
+    transform: translateX(100px) scale(0.8) rotate(10deg);
+  }
+
+  /* Trigger animasi saat class 'show' ditambahkan ke parent */
+  .gallery.show img {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0deg);
+  }
+  /* Staggered transition delay menggunakan nth-child untuk efek bergelombang */
+  .gallery.show img:nth-child(1) { transition-delay: 0s; }
+  .gallery.show img:nth-child(2) { transition-delay: 0.1s; }
+  .gallery.show img:nth-child(3) { transition-delay: 0.2s; }
+  .gallery.show img:nth-child(4) { transition-delay: 0.3s; }
+  .gallery.show img:nth-child(5) { transition-delay: 0.4s; }
+  .gallery.show img:nth-child(6) { transition-delay: 0.5s; }
+
+
+  /* Responsive - Vertical (Mobile) */
+  @media (max-width: 768px) {
+    .main-title {
+      font-size: 1.8rem;
+    }
+    .closing-message {
+      font-size: 1.5rem;
+    }
+    .closing-emoji {
+      font-size: 2rem;
+    }
+    .copyright {
+      font-size: 0.8rem;
+    }
+    .section, .section.even {
+      flex-direction: column;
+      gap: 20px;
+      max-width: 400px;
+      padding: 0 1rem;
+    }
+    .photo-wrap {
+      width: 90%;
+      transform: rotate(0deg) !important;
+    }
+    .section.even .photo-wrap {
+      transform: rotate(0deg) !important;
+    }
+    .photo, .section.even .photo {
+      transform: rotate(0deg) !important;
+    }
+    .text-box {
+      width: 95%;
+      margin: 0;
+      text-align: center;
+      padding: 1.2rem;
+    }
+    .text-box p {
+        text-align: center;
+    }
+    .gallery {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        width: 90%;
+        max-width: 400px;
+    }
+    /* Galeri di mobile tidak ada rotasi, hanya slide */
+    .gallery img:nth-child(odd) {
+        transform: translateX(-50px);
+    }
+    .gallery img:nth-child(even) {
+        transform: translateX(50px);
+    }
+    .gallery.show img {
+        transform: translateX(0) scale(1) rotate(0deg);
+    }
+    .gallery img {
+        width: 90%;
+        margin: 0 auto;
+        transform: rotate(0deg) !important;
+    }
+    .gallery img:nth-child(even) {
+        transform: rotate(0deg) !important;
+    }
+    /* Disable hover on touch devices */
+    .photo-wrap:hover, .text-box:hover, .gallery img:hover {
+        transform: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1 class="main-title">Dear istri ku tersayang</h1>
+
+<div class="section odd hidden">
+  <div class="photo-wrap">
+    <img src="img/foto-istri.jpg" class="photo" alt="foto1">
+    <span class="emoji tl"></span>
+    <span class="emoji tr">💖</span>
+    <span class="emoji bl">💐</span>
+    <span class="emoji br"></span>
+  </div>
+  <div class="text-box">
+    <h2> Untukmu, Sang Pemilik Hatiku😍</h2>
+    <p>Sayang, aku tahu aku tidak selalu bisa menjadi yang terbaik. Ada saat-saat di mana aku membuatmu kecewa, dan untuk itu, aku sungguh minta maaf. Aku menulis ini bukan untuk membenarkan diri,
+        melainkan untuk mengungkapkan betapa berartinya kamu dan hubungan ini bagiku. Kamu adalah satu-satunya orang yang membuatku ingin terus belajar dan menjadi pribadi yang lebih baik.</p>
+  </div>
+</div>
+
+<div class="section even hidden">
+  <div class="photo-wrap">
+    <img src="img/foto-istri-2.jpg" class="photo" alt="foto2">
+    <span class="emoji tl"></span>
+    <span class="emoji tr">💫</span>
+    <span class="emoji bl">💞</span>
+    <span class="emoji br"></span>
+  </div>
+  <div class="text-box">
+    <h2>Terima Kasih, sayang😊</h2>
+    <p>Kamu tahu, kadang aku merasa bersalah karena tidak bisa menjadi yang terbaik. Maafkan segala kekurangan dan kesalahan yang pernah aku lakukan. Aku tidak bisa membayangkan hidupku tanpamu. Hubungan kita ini bukan hanya sekadar pertemuan dua orang, tapi perjalanan yang membentuk kita menjadi pribadi yang lebih baik. Setiap tawa, tangis, dan perjuangan yang kita lewati,
+        semuanya membuatku makin yakin bahwa kamu adalah takdirku. Aku mencintaimu sedalam lautan, dan seluas angkasa. Mari kita terus saling berpegangan tangan, karena masa depan yang paling indah adalah masa depan bersamamu.</p>
+  </div>
+</div>
+
+<div class="section odd hidden">
+  <div class="photo-wrap">
+    <img src="img/foto-istri-3.jpg" class="photo" alt="foto3">
+    <span class="emoji tl"></span>
+    <span class="emoji tr">💘</span>
+    <span class="emoji bl">🌸</span>
+    <span class="emoji br"></span>
+  </div>
+  <div class="text-box">
+    <h2>Rumahku Adalah Kamu🥰</h2>
+    <p>Aku tidak bisa membayangkan hidupku tanpamu. Kamu adalah alasan aku tersenyum saat terbangun,
+        dan alasan aku merasa tenang saat kembali ke rumah. Terima kasih sudah menjadi tempatku pulang. Aku janji, kamu akan selalu jadi satu-satunya. Mari kita bangun cerita kita selamanya.</p>
+  </div>
+</div>
+
+<div class="gallery hidden">
+  <img src="img/foto-bersama-istri.jpg" alt="foto-bersama-istri">
+  <img src="img/foto-istri-9.jpg" alt="foto-istri-9">
+  <img src="img/foto-istri-8.jpg" alt="foto-istri-8">
+  <img src="img/foto-istri-10.jpg" alt="foto-istri-10">
+  <img src="img/foto-istri-6.jpg" alt="foto-istri-6">
+  <img src="img/foto-istri-7.jpg" alt="foto-istri-7">
+</div>
+
+<div class="closing-message hidden">
+    Thank you, my dearest wife. May we always be together forever.
+</div>
+<div class="closing-emoji">💓</div>
+<p class="copyright">&copy; 2025 by MUHAMMAD OKTO SAHPUTRA . All rights reserved.</p>
+
+<audio id="bg-music" src="audio/nadhif-bergema.mp3" loop></audio>
+<script>
+  // Script untuk memutar musik
+  const music = document.getElementById('bg-music');
+  function playMusic() {
+    music.play().catch(() => {});
+    document.removeEventListener('click', playMusic);
+    document.removeEventListener('touchstart', playMusic);
+  }
+  document.addEventListener('click', playMusic);
+  document.addEventListener('touchstart', playMusic);
+
+  // Script untuk animasi on-scroll
+  const mainObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  const hiddenElements = document.querySelectorAll('.section.hidden, .closing-message.hidden, .gallery.hidden');
+  hiddenElements.forEach((el) => mainObserver.observe(el));
+</script>
+
+</body>
+</html>
